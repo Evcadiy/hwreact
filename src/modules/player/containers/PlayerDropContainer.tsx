@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PlayerDropZone from "../components/PlayerDropZone";
 
-const PlayerContainer = () => {
+const PlayerDropContainer = () => {
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
@@ -37,4 +37,4 @@ const PlayerContainer = () => {
   );
 };
 
-export default PlayerContainer;
+export default PlayerDropContainer;
