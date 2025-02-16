@@ -26,6 +26,7 @@ const PlayerVisualizerContainer = () => {
     audioData,
     currentTime,
     duration,
+    isPlaying,
     handleSeek
   );
 
