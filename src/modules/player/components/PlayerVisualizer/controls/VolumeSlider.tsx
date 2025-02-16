@@ -1,12 +1,23 @@
-type VolumeSliderProps = {
-  audioRef: React.RefObject<HTMLAudioElement | null>;
-};
+import { useState } from "react";
 
-export const VolumeSlider: React.FC<VolumeSliderProps> = ({ audioRef }) => {
+export const VolumeSlider = ({
+  audioRef
+}: {
+  audioRef: React.RefObject<HTMLAudioElement | null>;
+}) => {
+  const [volume, setVolume] = useState(1);
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = Number(e.target.value);
+    setVolume(newVolume);
     if (audioRef.current) {
-      audioRef.current.volume = Number(e.target.value);
+      audioRef.current.volume = newVolume;
     }
+  };
+
+  const getSliderColor = (value: number) => {
+    if (value <= 0.4) return "accent-green-400";
+    if (value <= 0.7) return "accent-orange-300";
+    return "accent-red-400";
   };
 
   return (
@@ -17,9 +28,9 @@ export const VolumeSlider: React.FC<VolumeSliderProps> = ({ audioRef }) => {
         min="0"
         max="1"
         step="0.01"
-        defaultValue={audioRef.current?.volume || 1}
+        value={volume}
         onChange={handleVolumeChange}
-        className="w-64 h-2 bg-gray-300 rounded-lg accent-blue-500 transition-all"
+        className={`w-64 h-2 bg-gray-300 rounded-lg ${getSliderColor(volume)} transition-all `}
       />
     </div>
   );
