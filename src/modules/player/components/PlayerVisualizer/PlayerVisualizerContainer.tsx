@@ -1,17 +1,17 @@
-import { useFetchAudioData, useAudioPlayer } from "./PlayerVisualizer.hooks";
-import { AudioControls } from "./AudioControls";
+import { AudioControls } from "./controls/AudioControls";
 import { PlayerVisualizer } from "./PlayerVisualizer";
-import { useAudioFile } from "../../context/useAudioFile";
+import { useAudioFile } from "../../context";
+import { VolumeSlider } from "./controls/VolumeSlider";
+import { MuteButton } from "./controls/MuteButton";
+import { useAudioPlayer } from "./hooks/useAudioPlayer";
+import { useFetchAudioData } from "./hooks/useFetchAudioData";
+import { useAudioVisualizer } from "./hooks/useAudioVisualizer";
 
 const PlayerVisualizerContainer = () => {
   const {
     playAudio,
     pauseAudio,
     stopAudio,
-    volume,
-    handleVolumeChange,
-    isMuted,
-    toggleMute,
     isPlaying,
     setCurrentTime,
     audioRef,
@@ -21,6 +21,12 @@ const PlayerVisualizerContainer = () => {
   const { audioUrl } = useAudioFile();
   const { audioData, duration, isLoading, error } = useFetchAudioData(
     audioUrl!
+  );
+  const waveformRef = useAudioVisualizer(
+    audioData,
+    currentTime,
+    duration,
+    handleSeek
   );
 
   if (isLoading) {
@@ -46,22 +52,18 @@ const PlayerVisualizerContainer = () => {
         src={audioUrl!}
         onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)}
       />
-      <PlayerVisualizer
-        audioData={audioData}
-        currentTime={currentTime}
-        duration={duration}
-        onSeek={handleSeek}
-        isPlaying={isPlaying}
-      />
+      <PlayerVisualizer waveformRef={waveformRef} />
       <AudioControls
         onPause={pauseAudio}
         onPlay={playAudio}
         onStop={stopAudio}
         isPlaying={isPlaying}
-        volume={volume}
-        onVolumeChange={handleVolumeChange}
-        isMuted={isMuted}
-        onToggleMute={toggleMute}
+        extraControls={
+          <>
+            <VolumeSlider audioRef={audioRef} />
+            <MuteButton audioRef={audioRef} />
+          </>
+        }
       />
     </div>
   );
