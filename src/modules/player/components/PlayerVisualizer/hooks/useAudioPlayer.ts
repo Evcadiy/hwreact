@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 export const useAudioPlayer = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -6,35 +6,37 @@ export const useAudioPlayer = () => {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playAudio = () => {
-    if (audioRef.current) {
+  const playAudio = useCallback(() => {
+    if (audioRef.current && !isPlaying) {
       audioRef.current.play();
       setIsPlaying(true);
     }
-  };
+  }, [isPlaying]);
 
-  const pauseAudio = () => {
-    if (audioRef.current) {
+  const pauseAudio = useCallback(() => {
+    if (audioRef.current && isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
-  };
+  }, [isPlaying]);
 
-  const stopAudio = () => {
+  const stopAudio = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-      setIsPlaying(false);
-      setCurrentTime(0);
+      if (isPlaying) {
+        setIsPlaying(false);
+        setCurrentTime(0);
+      }
     }
-  };
+  }, [isPlaying]);
 
-  const handleSeek = (time: number) => {
+  const handleSeek = useCallback((time: number) => {
     if (audioRef.current) {
       audioRef.current.currentTime = time;
       setCurrentTime(time);
     }
-  };
+  }, []);
 
   return {
     currentTime,

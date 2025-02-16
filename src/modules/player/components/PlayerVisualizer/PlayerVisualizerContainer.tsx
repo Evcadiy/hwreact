@@ -6,6 +6,7 @@ import { MuteButton } from "./controls/MuteButton";
 import { useAudioPlayer } from "./hooks/useAudioPlayer";
 import { useFetchAudioData } from "./hooks/useFetchAudioData";
 import { useAudioVisualizer } from "./hooks/useAudioVisualizer";
+import { useMemo } from "react";
 
 const PlayerVisualizerContainer = () => {
   const {
@@ -28,6 +29,16 @@ const PlayerVisualizerContainer = () => {
     duration,
     isPlaying,
     handleSeek
+  );
+
+  const extraControls = useMemo(
+    () => (
+      <>
+        <VolumeSlider audioRef={audioRef} />
+        <MuteButton audioRef={audioRef} />
+      </>
+    ),
+    [audioRef]
   );
 
   if (isLoading) {
@@ -59,12 +70,7 @@ const PlayerVisualizerContainer = () => {
         onPlay={playAudio}
         onStop={stopAudio}
         isPlaying={isPlaying}
-        extraControls={
-          <>
-            <VolumeSlider audioRef={audioRef} />
-            <MuteButton audioRef={audioRef} />
-          </>
-        }
+        extraControls={extraControls}
       />
     </div>
   );
