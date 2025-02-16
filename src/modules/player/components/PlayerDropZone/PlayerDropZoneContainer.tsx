@@ -15,7 +15,6 @@ const PlayerDropZoneContainer = () => {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={(e: React.DragEvent) => handleDrop(e, setAudio)}
-          audioFile={audioFile}
         />
       )}
     </>
