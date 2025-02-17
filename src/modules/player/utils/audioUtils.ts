@@ -2,17 +2,7 @@ export const audioUtils = {
   loadAudio: async (url: string): Promise<AudioBuffer> => {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-
-    const AudioContextConstructor =
-      window.AudioContext ||
-      (window as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-
-    if (!AudioContextConstructor) {
-      throw new Error("AudioContext is not supported in this browser");
-    }
-
-    const audioContext = new AudioContextConstructor();
+    const audioContext = new AudioContext();
     return audioContext.decodeAudioData(arrayBuffer);
   },
 
