@@ -1,6 +1,6 @@
 import { AudioControls } from "./controls/AudioControls";
 import { PlayerVisualizer } from "./PlayerVisualizer";
-import { useAudioFile } from "../../context";
+import { useAudioFile } from "@/modules/player/context";
 import { VolumeSlider } from "./controls/VolumeSlider";
 import { MuteButton } from "./controls/MuteButton";
 import { useAudioPlayer } from "./hooks/useAudioPlayer";

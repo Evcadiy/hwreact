@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { audioUtils } from "../../../utils/audioUtils";
+import { audioUtils } from "@/modules/player/utils/audioUtils";
 
 export const useFetchAudioData = (audioUrl: string) => {
   const [audioData, setAudioData] = useState<number[]>([]);

@@ -1,4 +1,4 @@
-import { useAudioFile } from "../../context/useAudioFile";
+import { useAudioFile } from "@/modules/player/context/useAudioFile";
 import PlayerDropZone from "./PlayerDropZone";
 import { useDragAndDrop } from "./PlayerDropZone.hooks";
 
