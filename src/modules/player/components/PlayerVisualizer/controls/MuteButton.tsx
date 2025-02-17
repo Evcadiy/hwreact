@@ -1,10 +1,11 @@
 import { useState } from "react";
+import Button from "./Button";
 
-type MuteButtonProps = {
+export const MuteButton = ({
+  audioRef
+}: {
   audioRef: React.RefObject<HTMLAudioElement | null>;
-};
-
-export const MuteButton: React.FC<MuteButtonProps> = ({ audioRef }) => {
+}) => {
   const [isMuted, setIsMuted] = useState(false);
 
   const toggleMute = () => {
@@ -15,11 +16,11 @@ export const MuteButton: React.FC<MuteButtonProps> = ({ audioRef }) => {
   };
 
   return (
-    <button
+    <Button
       onClick={toggleMute}
-      className="mt-4 px-6 py-3 bg-gray-500 text-white rounded-lg shadow-lg transform transition-all duration-200 hover:bg-gray-400"
+      className={`mt-4 ${isMuted ? "bg-gray-400" : "bg-gray-500"} text-white hover:bg-gray-400`}
     >
       {isMuted ? "Unmute" : "Mute"}
-    </button>
+    </Button>
   );
 };
