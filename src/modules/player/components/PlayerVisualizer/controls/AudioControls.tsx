@@ -11,7 +11,6 @@ type AudioControlsProps = {
 
 export const AudioControls = memo<AudioControlsProps>(
   ({ onPlay, onPause, onStop, isPlaying, extraControls }) => {
-    console.log("AudioControls");
     return (
       <div className="flex flex-col items-center gap-6 mt-6">
         <div className="flex justify-center gap-6">
