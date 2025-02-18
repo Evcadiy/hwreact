@@ -1,7 +1,7 @@
-import PlayerDropContainer from "./modules/player/containers/PlayerDropContainer";
+import PlayerPage from "@/pages/PlayerPage";
 
 const App = () => {
-  return <PlayerDropContainer />;
+  return <PlayerPage />;
 };
 
 export default App;

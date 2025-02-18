@@ -1,21 +1,13 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-type PlayerVisualizerProps = {
-  audioData: number[];
-  currentTime: number;
-  duration: number;
-  onSeek: (time: number) => void;
-  isPlaying: boolean;
-};
-
-export const PlayerVisualizer: React.FC<PlayerVisualizerProps> = ({
-  audioData,
-  currentTime,
-  duration,
-  onSeek,
-  isPlaying
-}) => {
+export const useAudioVisualizer = (
+  audioData: number[],
+  currentTime: number,
+  duration: number,
+  isPlaying: boolean,
+  onSeek: (time: number) => void
+) => {
   const waveformRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -145,5 +137,5 @@ export const PlayerVisualizer: React.FC<PlayerVisualizerProps> = ({
     waveformRef.current.appendChild(svg.node() as Node);
   }, [audioData, currentTime, duration, onSeek, isPlaying]);
 
-  return <div ref={waveformRef} className="w-full h-[250px]" />;
+  return waveformRef;
 };
